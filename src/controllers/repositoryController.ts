@@ -64,14 +64,7 @@ export const getRepositoryReadmeById = async (
     }
 
     const repositoryReadme = await retrieveRepositoryReadmeById(repositoryId);
-
-    if (repositoryReadme != null) {
-      const decodedReadme = Buffer.from(repositoryReadme, 'base64').toString(
-        'utf-8'
-      );
-
-      response.send(decodedReadme);
-    }
+    response.send(repositoryReadme);
   } catch (error) {
     console.error('Error while getting the repository readme by id:', error);
     response
