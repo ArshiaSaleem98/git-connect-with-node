@@ -3,6 +3,7 @@ import cors from 'cors';
 import {
   repositoriesRouter,
   repositoryDetailsRouter,
+  repositoryReadmeRouter,
 } from './routes/repositoryRoutes';
 
 const app = express();
@@ -12,8 +13,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/repositories', repositoriesRouter);
-// Use a separate route for /repositoryDetails
 app.use('/repositoryDetails', repositoryDetailsRouter);
+app.use('/getreadme', repositoryReadmeRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

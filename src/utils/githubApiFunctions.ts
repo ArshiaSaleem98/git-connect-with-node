@@ -16,7 +16,6 @@ export const searchRepositoriesByName = async (
       numberOfForks: item.forks,
     })
   );
-
   return repositories;
 };
 
@@ -37,4 +36,12 @@ export const retrieveRepositoryDetailsById = async (
   } else {
     return null;
   }
+};
+
+export const retrieveRepositoryReadmeById = async (
+  repositoryId: string
+): Promise<string | null> => {
+  const url = `${GITHUB_API_BASE_URL}/repositories/${repositoryId}/readme`;
+  const response = await axios.get(url);
+  return response.data.content;
 };
