@@ -55,7 +55,6 @@ export const getRepositoryReadmeById = async (
 ) => {
   try {
     const repositoryId = request.query.id as string;
-
     if (!repositoryId) {
       response
         .status(400)
