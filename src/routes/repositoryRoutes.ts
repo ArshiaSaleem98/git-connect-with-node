@@ -1,8 +1,12 @@
 import express from 'express';
-import { getRepositoriesByName } from '../controllers/repositoryController';
+import {
+  getRepositoriesByName, getRepositoryDetailsById,
+} from '../controllers/repositoryController';
 
-const router = express.Router();
+const repositoriesRouter = express.Router();
+repositoriesRouter.get('/', getRepositoriesByName);
 
-router.get('/', getRepositoriesByName);
+const repositoryDetailsRouter = express.Router();
+repositoryDetailsRouter.get('/', getRepositoryDetailsById);
 
-export default router;
+export { repositoriesRouter, repositoryDetailsRouter };
