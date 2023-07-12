@@ -2,6 +2,6 @@ export interface Repository {
   id: number;
   name: string;
   description: string;
-  numberOfOpenIssues: number;
-  numberOfForks: number;
+  open_issues_count: number;
+  forks: number;
 }
