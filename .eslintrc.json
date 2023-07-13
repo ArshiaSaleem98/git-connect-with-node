@@ -1,5 +1,5 @@
 {
-  "ignorePatterns": ["dist/"],
+  "ignorePatterns": ["dist/", "jest.config.ts"],
 
   "extends": [
     "eslint:recommended",
