@@ -14,7 +14,13 @@ export const searchRepositoriesByNameController = async (
       return;
     }
     const repositories = await searchRepositoriesByName(repositoryName);
-    response.json(repositories);
+    if (repositories.length === 0) {
+      response.status(404).json({
+        error: 'No repositories found with the given name.',
+      });
+    } else {
+      response.json(repositories);
+    }
   } catch (error) {
     console.error('Error while getting the repositories by name:', error);
     response.status(500).json({ error: 'Failed to get the repositories' });

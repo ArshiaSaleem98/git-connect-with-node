@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as searchRepositoriesUtils from '../../src/utils/searchRepositoriesUtils';
 import { searchRepositoriesByNameController } from '../../src/controllers/searchRepositoriesController';
+import { Repository } from '../../src/models/repositoryModel';
 
 jest.mock('../../src/utils/searchRepositoriesUtils');
 
@@ -21,12 +22,10 @@ describe('searchRepositoriesByNameController', () => {
       json: jest.fn(),
     } as unknown as Response;
 
-
     searchRepositoriesByNameMock = jest.spyOn(
       searchRepositoriesUtils,
       'searchRepositoriesByName'
     );
-
 
     consoleErrorMock = jest.spyOn(console, 'error').mockImplementation();
   });
@@ -55,7 +54,22 @@ describe('searchRepositoriesByNameController', () => {
     expect(mockResponse.json).toHaveBeenCalledWith(mockRepositories);
   });
 
+  it('should return an empty array if no repositories are found with the given name', async () => {
+    mockRequest.query.name = 'NonExistingRepository';
 
+    const mockRepositories: Repository[] = [];
+    searchRepositoriesByNameMock.mockResolvedValueOnce(mockRepositories);
+
+    await searchRepositoriesByNameController(mockRequest, mockResponse);
+
+    expect(searchRepositoriesByNameMock).toHaveBeenCalledWith(
+      'NonExistingRepository'
+    );
+    expect(mockResponse.status).toHaveBeenCalledWith(404);
+    expect(mockResponse.json).toHaveBeenCalledWith({
+      error: 'No repositories found with the given name.',
+    });
+  });
 
   it('should return a 400 error if the name is missing', async () => {
     mockRequest.query.name = undefined;
@@ -67,7 +81,6 @@ describe('searchRepositoriesByNameController', () => {
       error: 'Repository name is missing, Please provide the name ',
     });
   });
-
 
   it('should return a 500 error if an error occurs during repository search', async () => {
     const mockError = new Error('Failed to get repositories');
