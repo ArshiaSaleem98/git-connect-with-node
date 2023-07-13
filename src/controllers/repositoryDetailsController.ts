@@ -16,11 +16,17 @@ export const getRepositoryDetailsByIdController = async (
     }
 
     const repository = await getRepositoryDetailsById(repositoryId);
-    response.json(repository);
+    if (repository) {
+      response.json(repository);
+    } else {
+      response
+        .status(404)
+        .json({ error: 'Repository not found with this ID.' });
+    }
   } catch (error) {
-    console.error('Error while getting the repository by id:', error);
+    console.error('Error while getting the repository by ID:', error);
     response
       .status(500)
-      .json({ error: 'Failed to get the repository with the given id' });
+      .json({ error: 'Failed to get the repository with the given ID.' });
   }
 };
