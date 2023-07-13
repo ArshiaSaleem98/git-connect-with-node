@@ -7,14 +7,14 @@ export const searchRepositoriesByName = async (
 ): Promise<Repository[]> => {
   const url = `${GITHUB_API_BASE_URL}/search/repositories?q=${searchQueryParam}`;
   const response = await axios.get(url);
-  const repositories: Repository[] = response.data.items.map(
-    (item: Repository) => ({
-      id: item.id,
-      name: item.name,
-      description: item.description,
-      open_issues_count: item.open_issues_count, // Update the property name here
-      forks: item.forks,
-    })
-  );
+  const repositories: Repository[] = response.data.items
+    ? response.data.items.map((item: Repository) => ({
+        id: item.id,
+        name: item.name,
+        description: item.description,
+        open_issues_count: item.open_issues_count,
+        forks: item.forks,
+      }))
+    : [];
   return repositories;
 };
