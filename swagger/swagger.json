@@ -1,0 +1,179 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "GitHub Repository Search API",
+      "version": "1.0.0",
+      "description": "GitHub Repository Search API allows to search GitHub repositories by name and retrieve detailed information about the repositories such as number of open issues and number of forks as well. The API provides endpoints for searching repositories by name, retrieving repository details by ID, and fetching readme files by ID for the projects. It utilizes the GitHub API to facilitate these operations. This documentation provides details about the available endpoints, query parameters, and response structures."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Local server"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Repositories",
+        "description": "Endpoints for repository operations"
+      }
+    ],
+    "paths": {
+      "/repositories": {
+        "get": {
+          "tags": ["Repositories"],
+          "summary": "Search repositories by name",
+          "description": "Endpoint to search repositories by name",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "name",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Repository name"
+            },
+            {
+              "in": "query",
+              "name": "page",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Page number (optional)"
+            },
+            {
+              "in": "query",
+              "name": "perPage",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Number of items per page (optional)"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RepositoryResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/repositoryDetails": {
+        "get": {
+          "tags": ["Repositories"],
+          "summary": "Get repository details by ID",
+          "description": "Endpoint to retrieve repository details by ID",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Repository ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Repository"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/getreadme": {
+        "get": {
+          "tags": ["Repositories"],
+          "summary": "Get repository readme by ID",
+          "description": "Endpoint to retrieve repository readme by ID",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Repository ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "text/html": {}
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "RepositoryResponse": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Repository"
+          }
+        },
+        "Repository": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "open_issues_count": {
+              "type": "integer"
+            },
+            "forks": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+  
