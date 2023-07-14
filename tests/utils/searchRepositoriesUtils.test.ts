@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { searchRepositoriesByName } from '../../src/utils/searchRepositoriesUtils';
+import { GITHUB_API_BASE_URL } from '../../src/constants/githubApi';
 
 jest.mock('axios');
 
@@ -34,7 +35,7 @@ describe('searchRepositoriesByName', () => {
     expect(repositories[0].open_issues_count).toEqual(0);
     expect(repositories[0].forks).toEqual(0);
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      'https://api.github.com/search/repositories?q=ArshiaSaleem98/team-members-listing'
+      `${GITHUB_API_BASE_URL}/search/repositories?q=ArshiaSaleem98/team-members-listing&page=undefined&per_page=undefined`
     );
   });
 });

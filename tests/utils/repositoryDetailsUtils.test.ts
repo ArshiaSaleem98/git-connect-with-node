@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { getRepositoryDetailsById } from '../../src/utils/repositoryDetailsUtils';
+import { GITHUB_API_BASE_URL } from '../../src/constants/githubApi';
 
 jest.mock('axios');
 
@@ -29,7 +30,7 @@ describe('getRepositoryDetailsById', () => {
     expect(repository?.open_issues_count).toEqual(0);
     expect(repository?.forks).toEqual(0);
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `https://api.github.com/repositories/${repositoryId}`
+      `${GITHUB_API_BASE_URL}/repositories/${repositoryId}`
     );
   });
 
@@ -43,7 +44,7 @@ describe('getRepositoryDetailsById', () => {
 
     expect(repository).toBeNull();
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `https://api.github.com/repositories/${repositoryId}`
+      `${GITHUB_API_BASE_URL}/repositories/${repositoryId}`
     );
   });
 });

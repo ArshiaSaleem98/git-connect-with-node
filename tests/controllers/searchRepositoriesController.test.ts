@@ -15,6 +15,8 @@ describe('searchRepositoriesByNameController', () => {
     mockRequest = {
       query: {
         name: 'ArshiaSaleem98/team-members-listing',
+        page: '1',
+        perPage: '10',
       },
     } as unknown as Request;
     mockResponse = {
@@ -35,7 +37,7 @@ describe('searchRepositoriesByNameController', () => {
   });
 
   it('should handle the searchRepositoriesByNameController request', async () => {
-    const mockRepositories = [
+    const mockRepositories: Repository[] = [
       {
         id: 660773430,
         name: 'team-members-listing',
@@ -49,7 +51,9 @@ describe('searchRepositoriesByNameController', () => {
     await searchRepositoriesByNameController(mockRequest, mockResponse);
 
     expect(searchRepositoriesByNameMock).toHaveBeenCalledWith(
-      'ArshiaSaleem98/team-members-listing'
+      'ArshiaSaleem98/team-members-listing',
+      1,
+      10
     );
     expect(mockResponse.json).toHaveBeenCalledWith(mockRepositories);
   });
@@ -63,7 +67,9 @@ describe('searchRepositoriesByNameController', () => {
     await searchRepositoriesByNameController(mockRequest, mockResponse);
 
     expect(searchRepositoriesByNameMock).toHaveBeenCalledWith(
-      'NonExistingRepository'
+      'NonExistingRepository',
+      1,
+      10
     );
     expect(mockResponse.status).toHaveBeenCalledWith(404);
     expect(mockResponse.json).toHaveBeenCalledWith({
@@ -84,10 +90,6 @@ describe('searchRepositoriesByNameController', () => {
 
   it('should return a 500 error if an error occurs during repository search', async () => {
     const mockError = new Error('Failed to get repositories');
-    const searchRepositoriesByNameMock = jest.spyOn(
-      searchRepositoriesUtils,
-      'searchRepositoriesByName'
-    );
     searchRepositoriesByNameMock.mockRejectedValueOnce(mockError);
 
     await searchRepositoriesByNameController(mockRequest, mockResponse);

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import fs from 'fs';
 import { getRepositoryReadmeById } from '../../src/utils/repositoryReadmeUtils';
+import { GITHUB_API_BASE_URL } from '../../src/constants/githubApi';
 
 jest.mock('axios');
 
@@ -24,7 +25,7 @@ describe('getRepositoryReadmeById', () => {
     ).toBeDefined();
 
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `https://api.github.com/repositories/${repositoryId}/readme`
+      `${GITHUB_API_BASE_URL}/repositories/${repositoryId}/readme`
     );
   });
 
@@ -38,7 +39,7 @@ describe('getRepositoryReadmeById', () => {
 
     expect(htmlContent).toBeNull();
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `https://api.github.com/repositories/${repositoryId}/readme`
+      `${GITHUB_API_BASE_URL}/repositories/${repositoryId}/readme`
     );
   });
 });
