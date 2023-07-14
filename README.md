@@ -15,7 +15,7 @@ Best practices and type safety are incorporated into the application. For API fu
 
 1. Open the terminal and clone the repository: `https://github.com/ArshiaSaleem98/git-connect-with-node.git`
 
-2. Navigate to the project directory and Install all the needed dependencies by using the command: `npm run install`
+2. Navigate to the project directory and Install all the needed dependencies by using the command: `npm install`
 
 3. Build the project and start the server with the command: `npm run dev`. The server will start running on `http://localhost:3000`.
 
