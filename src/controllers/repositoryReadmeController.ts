@@ -15,7 +15,13 @@ export const getRepositoryReadmeByIdController = async (
     }
 
     const repositoryReadme = await getRepositoryReadmeById(repositoryId);
-    response.send(repositoryReadme);
+    if (repositoryReadme === null) {
+      response
+        .status(404)
+        .json({ error: 'Repository readme not found with this ID.' });
+    } else {
+      response.send(repositoryReadme);
+    }
   } catch (error) {
     console.error('Error while getting the repository readme by id:', error);
     response
