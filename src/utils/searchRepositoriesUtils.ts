@@ -3,9 +3,11 @@ import { Repository } from '../models/repositoryModel';
 import { GITHUB_API_BASE_URL } from '../constants/githubApi';
 
 export const searchRepositoriesByName = async (
-  searchQueryParam: string
+  repoNameToSearch: string,
+  page?: number,
+  perPage?: number
 ): Promise<Repository[]> => {
-  const url = `${GITHUB_API_BASE_URL}/search/repositories?q=${searchQueryParam}`;
+  const url = `${GITHUB_API_BASE_URL}/search/repositories?q=${repoNameToSearch}&page=${page}&per_page=${perPage}`;
   const response = await axios.get(url);
   const repositories: Repository[] = response.data.items
     ? response.data.items.map((item: Repository) => ({
