@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import { getRepositoryReadmeById } from '../utils/repositoryReadmeUtils';
 
+
+// Controller function to retreive the readme of the given ID if it exists 
+
 export const getRepositoryReadmeByIdController = async (
   request: Request,
   response: Response

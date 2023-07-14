@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "GitHub Repository Search API",
-    "version": "1.0.0",
-    "description": "GitHub Repository Search API allows to search GitHub repositories by name and retrieve detailed information about the repositories such as the number of open issues and forks. The API provides endpoints for searching repositories by name, retrieving repository details by ID, and fetching readme files by ID for the projects. It utilizes the GitHub API to facilitate these operations. This documentation provides details about the available endpoints, query parameters, and response structures."
+    "title": "GitHub Repository Search API Service",
+    "version":"1.0.0",
+    "description": "GitHub Repository Search API allows to search the user GitHub repositories by name and gets the detailed information about the repositories, such as the number of open issues and and number of forks. The API provides endpoints for searching repositories by name , get repository details by ID, and fetching readme files by ID for the projects. It uses the GitHub API to facilitate these operations. This Swagger documentation provides details about the available endpoints, query parameters, and response structures."
   },
   "servers": [
     {
@@ -211,7 +211,7 @@
               "text/html": {
                 "examples": {
                   "example1": {
-                    "value": "<html><body><h1>Repository Readme</h1><p>This is the readme content.</p></body></html>"
+                    "value": "<html><body<h1>Team &amp; Members Listing Website</h1></body></html>"
                   }
                 }
               }

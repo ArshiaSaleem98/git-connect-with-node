@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { getRepositoryDetailsById } from '../utils/repositoryDetailsUtils';
 
+// Controller function to get the repo details for the given ID
+
 export const getRepositoryDetailsByIdController = async (
   request: Request,
   response: Response
@@ -25,8 +27,8 @@ export const getRepositoryDetailsByIdController = async (
     }
   } catch (error) {
     console.error('Error while getting the repository details by ID:', error);
-    response
-      .status(500)
-      .json({ error: 'Failed to get the repository details with the given ID.' });
+    response.status(500).json({
+      error: 'Failed to get the repository details with the given ID.',
+    });
   }
 };

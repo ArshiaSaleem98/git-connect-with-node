@@ -3,6 +3,8 @@ import { GITHUB_API_BASE_URL } from '../constants/githubApi';
 import { marked } from 'marked';
 import { markdownOptions } from '../constants/markdownOptions';
 
+// Util function to retreive the readme of the given ID if it exists 
+
 export const getRepositoryReadmeById = async (
   repositoryId: string
 ): Promise<string | null> => {

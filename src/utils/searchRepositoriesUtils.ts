@@ -2,6 +2,8 @@ import axios from 'axios';
 import { Repository } from '../models/repositoryModel';
 import { GITHUB_API_BASE_URL } from '../constants/githubApi';
 
+// Util function to search the repos by the given name 
+
 export const searchRepositoriesByName = async (
   repoNameToSearch: string,
   page?: number,

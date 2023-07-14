@@ -2,6 +2,9 @@ import axios from 'axios';
 import { Repository } from '../models/repositoryModel';
 import { GITHUB_API_BASE_URL } from '../constants/githubApi';
 
+
+// Util function to get the repo details for the given ID
+
 export const getRepositoryDetailsById = async (
   repositoryId: string
 ): Promise<Repository | null> => {

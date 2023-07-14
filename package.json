@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.ts",
+    "dev": "npm run build && npm run lint && nodemon src/index.ts",
     "build": "npm run build:ts && npm run copy:files",
     "build:ts": "tsc --outDir dist",
-    "copy:files": "xcopy /y .\\testContent.txt dist\\",
-    "dev": "npm run build && npm run lint && nodemon src/index.ts",
+    "copy:files": "cp ./testContent.txt ./dist/ || xcopy /y .\\testContent.txt dist\\",
     "lint": "eslint . --fix",
     "test": "npm run build:ts && npm run copy:files && jest --verbose",
     "swagger-jsdoc": "swagger-jsdoc -d swagger/swagger.json -o swagger/swagger.json"

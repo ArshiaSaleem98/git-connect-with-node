@@ -1,3 +1,4 @@
+//model entity for the Repository
 export interface Repository {
   id: number;
   name: string;

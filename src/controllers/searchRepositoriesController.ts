@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { searchRepositoriesByName } from '../utils/searchRepositoriesUtils';
 
+// Controller function to search the repos by the given name 
+
 export const searchRepositoriesByNameController = async (
   request: Request,
   response: Response
