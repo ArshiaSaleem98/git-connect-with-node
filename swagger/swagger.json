@@ -1,179 +1,296 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "GitHub Repository Search API",
-      "version": "1.0.0",
-      "description": "GitHub Repository Search API allows to search GitHub repositories by name and retrieve detailed information about the repositories such as number of open issues and number of forks as well. The API provides endpoints for searching repositories by name, retrieving repository details by ID, and fetching readme files by ID for the projects. It utilizes the GitHub API to facilitate these operations. This documentation provides details about the available endpoints, query parameters, and response structures."
-    },
-    "servers": [
-      {
-        "url": "http://localhost:3000",
-        "description": "Local server"
-      }
-    ],
-    "tags": [
-      {
-        "name": "Repositories",
-        "description": "Endpoints for repository operations"
-      }
-    ],
-    "paths": {
-      "/repositories": {
-        "get": {
-          "tags": ["Repositories"],
-          "summary": "Search repositories by name",
-          "description": "Endpoint to search repositories by name",
-          "parameters": [
-            {
-              "in": "query",
-              "name": "name",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Repository name"
+  "openapi": "3.0.0",
+  "info": {
+    "title": "GitHub Repository Search API",
+    "version": "1.0.0",
+    "description": "GitHub Repository Search API allows to search GitHub repositories by name and retrieve detailed information about the repositories such as the number of open issues and forks. The API provides endpoints for searching repositories by name, retrieving repository details by ID, and fetching readme files by ID for the projects. It utilizes the GitHub API to facilitate these operations. This documentation provides details about the available endpoints, query parameters, and response structures."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Repositories",
+      "description": "Endpoints for github repository operations"
+    }
+  ],
+  "paths": {
+    "/repositories": {
+      "get": {
+        "tags": ["Repositories"],
+        "summary": "Search repositories by name",
+        "description": "Endpoint to search repositories by name. By default, it returns the first page with 10 results. If 'page' and 'perPage' query parameters are provided, it will show the repositories according to the specified page and perPage number.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
             },
-            {
-              "in": "query",
-              "name": "page",
-              "schema": {
-                "type": "integer"
-              },
-              "description": "Page number (optional)"
+            "description": "Repository name"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
             },
-            {
-              "in": "query",
-              "name": "perPage",
-              "schema": {
-                "type": "integer"
-              },
-              "description": "Number of items per page (optional)"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/RepositoryResponse"
+            "description": "Page number (optional)"
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of items per page (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepositoryResponse"
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "id": 660773430,
+                        "name": "team-members-listing",
+                        "description": null,
+                        "open_issues_count": 0,
+                        "forks": 0
+                      }
+                    ]
                   }
                 }
               }
-            },
-            "400": {
-              "description": "Bad request"
-            },
-            "404": {
-              "description": "Not found"
-            },
-            "500": {
-              "description": "Internal server error"
             }
-          }
-        }
-      },
-      "/repositoryDetails": {
-        "get": {
-          "tags": ["Repositories"],
-          "summary": "Get repository details by ID",
-          "description": "Endpoint to retrieve repository details by ID",
-          "parameters": [
-            {
-              "in": "query",
-              "name": "id",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Repository ID"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Repository"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "error": "Repository name is missing, Please provide the name"
+                    }
                   }
                 }
               }
-            },
-            "404": {
-              "description": "Not found"
-            },
-            "500": {
-              "description": "Internal server error"
             }
-          }
-        }
-      },
-      "/getreadme": {
-        "get": {
-          "tags": ["Repositories"],
-          "summary": "Get repository readme by ID",
-          "description": "Endpoint to retrieve repository readme by ID",
-          "parameters": [
-            {
-              "in": "query",
-              "name": "id",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Repository ID"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful response",
-              "content": {
-                "text/html": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "error": "No repositories found with the given name."
+                    }
+                  }
+                }
               }
-            },
-            "400": {
-              "description": "Bad request"
-            },
-            "404": {
-              "description": "Not found"
-            },
-            "500": {
-              "description": "Internal server error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "error": "Failed to get the repositories"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
     },
-    "components": {
-      "schemas": {
-        "RepositoryResponse": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/Repository"
+    "/repositoryDetails": {
+      "get": {
+        "tags": ["Repositories"],
+        "summary": "Get repository details by ID",
+        "description": "Endpoint to retrieve repository details by ID",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Repository ID"
           }
-        },
-        "Repository": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "integer"
-            },
-            "name": {
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Repository"
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "id": 660773430,
+                      "name": "team-members-listing",
+                      "description": null,
+                      "open_issues_count": 0,
+                      "forks": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "error": "Repository Details are not found with this ID."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "error": "Failed to get the repository details with the given ID."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getreadme": {
+      "get": {
+        "tags": ["Repositories"],
+        "summary": "Get repository readme by ID",
+        "description": "Endpoint to retrieve repository readme by ID if it exists",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
               "type": "string"
             },
-            "description": {
-              "type": "string"
-            },
-            "open_issues_count": {
-              "type": "integer"
-            },
-            "forks": {
-              "type": "integer"
+            "description": "Repository ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/html": {
+                "examples": {
+                  "example1": {
+                    "value": "<html><body><h1>Repository Readme</h1><p>This is the readme content.</p></body></html>"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "error": "Repository ID is missing. Please provide the id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "error": "Repository readme not found with this ID."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "error": "Failed to get the repository readme with the given ids"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "RepositoryResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Repository"
+        }
+      },
+      "Repository": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "open_issues_count": {
+            "type": "integer"
+          },
+          "forks": {
+            "type": "integer"
+          }
+        }
+      }
+    }
   }
-  
+}
