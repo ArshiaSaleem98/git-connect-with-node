@@ -31,7 +31,7 @@ To run the tests for this project, follow these steps:
 
 This command will trigger the test runner using Jest, a JavaScript testing framework.
 
-4. Jest will run all the tests in the project, including tests for containers, utility functions, and API interactions.
+3. Jest will run all the tests in the project, including tests for containers, utility functions, and API interactions.
 
     - The test results will be displayed in the terminal or command prompt, indicating whether the tests passed or failed.
     - Any failed tests will provide detailed information about the failures, including the specific test case and the expected versus actual results.
