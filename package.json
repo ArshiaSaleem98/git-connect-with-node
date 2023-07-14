@@ -8,9 +8,9 @@
     "build": "npm run build:ts && npm run copy:files",
     "build:ts": "tsc --outDir dist",
     "copy:files": "xcopy /y .\\testContent.txt dist\\",
-    "dev": "npm run build && nodemon src/index.ts",
+    "dev": "npm run build && npm run lint && nodemon src/index.ts",
     "lint": "eslint . --fix",
-    "test": "npm run build:ts && npm run copy:files && jest"
+    "test": "npm run build:ts && npm run copy:files && jest --verbose"
   },
   "keywords": [],
   "author": "",

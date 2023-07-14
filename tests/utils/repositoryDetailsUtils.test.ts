@@ -7,7 +7,7 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('getRepositoryDetailsById', () => {
-  it('should return repository details if response data is available', async () => {
+  it('should return repository details if data is available for the given id', async () => {
     const responseData = {
       id: 660773430,
       name: 'team-members-listing',
@@ -34,7 +34,7 @@ describe('getRepositoryDetailsById', () => {
     );
   });
 
-  it('should return null if response data is not available', async () => {
+  it('should return null if there are no details for the given id', async () => {
     const getMock = jest.fn();
     getMock.mockResolvedValueOnce({ data: null } as AxiosResponse);
     mockedAxios.get = getMock;

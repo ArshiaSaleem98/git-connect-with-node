@@ -7,7 +7,7 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('searchRepositoriesByName', () => {
-  it('should return an array of repositories', async () => {
+  it('should return the array of repositories for the name searched ', async () => {
     const responseData = {
       items: [
         {

@@ -21,12 +21,12 @@ export const getRepositoryDetailsByIdController = async (
     } else {
       response
         .status(404)
-        .json({ error: 'Repository not found with this ID.' });
+        .json({ error: 'Repository Details are not found with this ID.' });
     }
   } catch (error) {
-    console.error('Error while getting the repository by ID:', error);
+    console.error('Error while getting the repository details by ID:', error);
     response
       .status(500)
-      .json({ error: 'Failed to get the repository with the given ID.' });
+      .json({ error: 'Failed to get the repository details with the given ID.' });
   }
 };

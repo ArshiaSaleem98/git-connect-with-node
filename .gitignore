@@ -4,17 +4,5 @@ node_modules/
 # ignore the transpiled code directory
 dist/
 
-# ignore ESLint configuration
-.eslintrc.json
-
-# ignore Husky configuration
-.huskyrc
-
-# ignore Prettier configuration
-.prettierrc
-
-# ignore Jest configuration
-jest.config.ts
-
 # ignore package lock file
 package-lock.json

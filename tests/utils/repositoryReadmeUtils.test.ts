@@ -8,7 +8,7 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('getRepositoryReadmeById', () => {
-  it('should return the HTML content if response data is available', async () => {
+  it('should return the readme in HTML format if its available for the given id', async () => {
     const contentFilePath = 'testContent.txt';
     const responseData = {
       content: await fs.promises.readFile(contentFilePath, 'utf-8'),
@@ -29,7 +29,7 @@ describe('getRepositoryReadmeById', () => {
     );
   });
 
-  it('should return null if response data is not available', async () => {
+  it('should return null if no readme found for the given id', async () => {
     const getMock = jest.fn();
     getMock.mockResolvedValueOnce({ data: null } as AxiosResponse);
     mockedAxios.get = getMock;

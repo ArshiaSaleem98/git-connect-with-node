@@ -50,7 +50,7 @@ describe('getRepositoryDetailsByIdController', () => {
     expect(mockResponse.json).toHaveBeenCalledWith(mockRepository);
   });
 
-  it('should return a 404 error if the repository is not found with the given ID', async () => {
+  it('should return a 404 error if the repository details are not found with the given ID', async () => {
     mockRequest.query.id = 'NonExistingRepository';
 
     getRepositoryDetailsByIdMock.mockResolvedValueOnce(null);
@@ -62,7 +62,7 @@ describe('getRepositoryDetailsByIdController', () => {
     );
     expect(mockResponse.status).toHaveBeenCalledWith(404);
     expect(mockResponse.json).toHaveBeenCalledWith({
-      error: 'Repository not found with this ID.',
+      error: 'Repository Details are not found with this ID.',
     });
   });
 
@@ -77,7 +77,7 @@ describe('getRepositoryDetailsByIdController', () => {
     });
   });
 
-  it('should return a 500 error if an error occurs during repository retrieval', async () => {
+  it('should return a 500 error if an error occurs during repository details retrieval', async () => {
     const mockError = new Error('Failed to get the repository');
     getRepositoryDetailsByIdMock.mockRejectedValueOnce(mockError);
 
@@ -85,10 +85,10 @@ describe('getRepositoryDetailsByIdController', () => {
 
     expect(mockResponse.status).toHaveBeenCalledWith(500);
     expect(mockResponse.json).toHaveBeenCalledWith({
-      error: 'Failed to get the repository with the given ID.',
+      error: 'Failed to get the repository details with the given ID.',
     });
     expect(consoleErrorMock).toHaveBeenCalledWith(
-      'Error while getting the repository by ID:',
+      'Error while getting the repository details by ID:',
       mockError
     );
   });

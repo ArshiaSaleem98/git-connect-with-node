@@ -79,7 +79,7 @@ describe('getRepositoryReadmeByIdController', () => {
     });
   });
 
-  it('should return a 500 error if an error occurs during repository retrieval', async () => {
+  it('should return a 500 error if an error occurs during repository readme retrieval', async () => {
     const mockError = new Error('Failed to get the repository');
     getRepositoryReadmeByIdMock.mockRejectedValueOnce(mockError);
 
